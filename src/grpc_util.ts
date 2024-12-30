@@ -120,8 +120,8 @@ export class Stream<GrpcOutput, StreamOutput> {
       }
       this.responses_.push({ data });
     });
-    call.on("status", (status) => {
-      if(status.code === 0) {
+    call.on("status", (status: { code: number; metadata: GrpcMetadata }) => {
+      if (status.code === 0) {
         this.responses_.push({ metadata: new Metadata(status.metadata) });
       }
     });
